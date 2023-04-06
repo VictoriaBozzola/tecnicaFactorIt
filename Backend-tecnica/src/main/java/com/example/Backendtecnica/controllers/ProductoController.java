@@ -7,6 +7,8 @@ import com.example.Backendtecnica.repository.CarritoRepository;
 import com.example.Backendtecnica.repository.FechaRepository;
 import com.example.Backendtecnica.repository.ProductoRespository;
 import com.example.Backendtecnica.repository.UsuariosRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +20,8 @@ import java.util.Optional;
 
 @RestController
 public class ProductoController {
+
+    private final Logger log = LoggerFactory.getLogger(ProductoController.class);
     @Autowired
     private ProductoRespository productoRespository;
 
@@ -50,7 +54,7 @@ public class ProductoController {
             return ResponseEntity.ok(todosLosProductos);
 
         }catch (Exception e){
-            System.out.println("Error: " + e);
+            log.warn("Error: " + e);
             return ResponseEntity.unprocessableEntity().build();
         }
     }
@@ -77,7 +81,7 @@ public class ProductoController {
                return ResponseEntity.ok(Carrito.Tipo.COMUN);
            }
        } catch (Exception e){
-           System.out.println("Error: " + e);
+           log.warn("Error: " + e);
            return ResponseEntity.unprocessableEntity().build();
        }
     }
@@ -104,7 +108,8 @@ public class ProductoController {
             return ResponseEntity.ok(save);
 
         } catch(Exception e){
-            System.out.println("Error: " + e);
+
+            log.warn("Error: " + e);
             return ResponseEntity.unprocessableEntity().build();
         }
     }

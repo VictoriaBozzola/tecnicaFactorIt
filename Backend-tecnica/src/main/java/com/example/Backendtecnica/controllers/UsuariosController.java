@@ -1,13 +1,9 @@
 package com.example.Backendtecnica.controllers;
 
 import com.example.Backendtecnica.entities.UsuarioGenerate;
-import com.example.Backendtecnica.entities.UsuarioInput;
-import com.example.Backendtecnica.repository.FechaRepository;
 import com.example.Backendtecnica.repository.UsuariosRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 public class UsuariosController {

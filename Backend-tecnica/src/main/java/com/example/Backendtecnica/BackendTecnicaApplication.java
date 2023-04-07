@@ -28,14 +28,12 @@ public class BackendTecnicaApplication {
         UsuarioGenerate usuario2 = new UsuarioGenerate(null, "Maria", false);
         FechaEspecial fechaPromocion = new FechaEspecial(null, LocalDate.of(2023, 4, 22));
 
-
-        //Guardar
+        //Mock DB
         repository.save(producto1);
         repository.save(producto2);
         usuariosRepository.save(usuario1);
         usuariosRepository.save(usuario2);
         fechaRepository.save(fechaPromocion);
-        System.out.println("Recupera datos:" + repository.findAll().size());
 	}
 
 }

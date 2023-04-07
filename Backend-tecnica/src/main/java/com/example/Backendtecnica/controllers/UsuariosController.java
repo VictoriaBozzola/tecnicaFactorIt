@@ -2,6 +2,7 @@ package com.example.Backendtecnica.controllers;
 
 import com.example.Backendtecnica.entities.UsuarioGenerate;
 import com.example.Backendtecnica.repository.UsuariosRepository;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,6 +16,7 @@ public class UsuariosController {
     }
 
     @GetMapping("/login")
+    @ApiOperation("Loguear al usuario para comprar solo con su nombre")
     public ResponseEntity<UsuarioGenerate> login(@RequestParam String nombre){
 
         UsuarioGenerate usuario = usuariosRepository.findByUsuario(nombre);
@@ -26,6 +28,7 @@ public class UsuariosController {
     }
 
     @PostMapping("/generarUsuario")
+    @ApiOperation("Generar un nuevo usuario")
     public ResponseEntity<UsuarioGenerate> generarUsuario(@RequestBody UsuarioGenerate usuario){
         UsuarioGenerate usuarioGenerado = usuariosRepository.save(usuario);
         return ResponseEntity.ok(usuarioGenerado);

@@ -1,12 +1,14 @@
 package com.example.Backendtecnica.controllers;
 
 import com.example.Backendtecnica.entities.Carrito;
+import com.example.Backendtecnica.entities.FechaEspecial;
 import com.example.Backendtecnica.entities.Producto;
 import com.example.Backendtecnica.entities.UsuarioGenerate;
 import com.example.Backendtecnica.repository.CarritoRepository;
 import com.example.Backendtecnica.repository.FechaRepository;
 import com.example.Backendtecnica.repository.ProductoRespository;
 import com.example.Backendtecnica.repository.UsuariosRepository;
+import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,12 +44,14 @@ public class ProductoController {
     }
 
     @PostMapping("/crearProducto")
+    @ApiOperation("Crear nuevos productos a parte de los mock")
     public ResponseEntity<Producto> crearProducto(@RequestBody Producto producto){
         productoRespository.save(producto);
         return ResponseEntity.ok(producto);
     }
 
-    @GetMapping("/api/productos")
+    @GetMapping("/productos")
+    @ApiOperation("Trae todos los productos de la DB")
     public ResponseEntity<List<Producto>> listaProductos(){
         try {
             List<Producto> todosLosProductos = productoRespository.findAll();
@@ -59,16 +63,21 @@ public class ProductoController {
         }
     }
 
-    @GetMapping("/api/productos/{id}")
-    public Producto productoPorId(@PathVariable Long id){
-        Optional<Producto> productoSeleccionado = productoRespository.findById(id);
-        if(productoSeleccionado.isPresent()){
-            return productoSeleccionado.get();
+    @GetMapping("/fechaEspecial")
+    @ApiOperation("Consulta la fecha especial de promociones")
+    public ResponseEntity<FechaEspecial> fechaEspecial(){
+        try {
+            FechaEspecial fechaPromocion = fechaRepository.findAll().get(0);
+            return ResponseEntity.ok(fechaPromocion);
+
+        } catch (Exception e){
+            log.warn("Error: " + e);
+            return ResponseEntity.unprocessableEntity().build();
         }
-        return null;
     }
 
     @GetMapping("/consultarTipoCarrito")
+    @ApiOperation("Consulta cual es el tipo de carrito que se va a crear")
     public ResponseEntity<Carrito.Tipo> tipoCarrito(@RequestParam boolean vip){
         LocalDate fechaHoy = LocalDate.now();
         LocalDate fechaPromocion = fechaRepository.findAll().get(0).getFechaEspecial();
@@ -87,25 +96,29 @@ public class ProductoController {
     }
 
     @PostMapping("/registrarCarrito")
-    public ResponseEntity registrarCarrito(@RequestBody Carrito carrito) {
+    @ApiOperation("Registra el carrito cuandos e finaliza la compra")
+    public ResponseEntity<String> registrarCarrito(@RequestBody Carrito carrito) {
         carrito.setFechaCompra(LocalDate.now());
         try {
             UsuarioGenerate usuario = usuariosRepository.findById(Long.valueOf(carrito.getIdUsuario())).get();
+            boolean estadoVip = usuario.isVip();
             if(usuario.isVip()){
                 List<Carrito> listadoComprasMes = carritoRepository.findCompras(carrito.getIdUsuario(), carrito.getFechaCompra());
                 if(listadoComprasMes.size() == 0){
                     usuariosRepository.modificarTipoUsuario(usuario.getId(), false);
+                    estadoVip = false;
                 }
             } else {
                 List<Carrito> listadoComprasVip = carritoRepository.findComprasVip(carrito.getIdUsuario(), carrito.getFechaCompra());
                 if(listadoComprasVip.size() > 0) {
                     usuariosRepository.modificarTipoUsuario(usuario.getId(), true);
+                    estadoVip = true;
                 }
             }
 
             Carrito save = carritoRepository.save(carrito);
 
-            return ResponseEntity.ok(save);
+            return ResponseEntity.ok("El carrito se guardo correctamente, estado vip de usuario: " + estadoVip);
 
         } catch(Exception e){
 

@@ -5,12 +5,12 @@ import { PortalComponent } from './Components/portal/portal.component';
 
 
 const routes: Routes = [{
-  path: "**", component: PortalComponent
-}, {
-  path:"portal", component: PortalComponent
-}, {
-  path:"login", component: LoginComponent 
-}];
+    path:"portal", component: PortalComponent
+  }, {
+    path:"login", component: LoginComponent 
+  }, { 
+    path: '', pathMatch: 'full', redirectTo: 'login'
+  }];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

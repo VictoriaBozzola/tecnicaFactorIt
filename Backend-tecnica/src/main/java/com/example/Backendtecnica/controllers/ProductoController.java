@@ -118,8 +118,8 @@ public class ProductoController {
             }
 
             Carrito save = carritoRepository.save(carrito);
-
-            return ResponseEntity.ok("El carrito se guardo correctamente, estado vip de usuario: " + estadoVip);
+            log.info("El carrito se guardo correctamente, estado vip de usuario: " + estadoVip);
+            return ResponseEntity.ok().build();
 
         } catch(Exception e){
 

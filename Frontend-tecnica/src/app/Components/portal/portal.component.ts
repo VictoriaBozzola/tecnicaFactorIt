@@ -112,6 +112,11 @@ export class PortalComponent implements OnInit {
 
   registrarCarrito(){
     console.log("Carrito principal", this.carrito);
+    this.gralService.registrarCarrito(this.carrito).subscribe(res => {
+      console.log("El carrito se registro correctamente");
+    }, err => {
+      console.log('Error al registrar carrito', err)
+    })
 
   }
 

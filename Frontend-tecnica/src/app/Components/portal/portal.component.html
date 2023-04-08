@@ -30,11 +30,11 @@
         <hr>
         <div>
             <label> Precio total </label>
-            <p> $ {{ totalSinDescuento }} </p>
+            <p> ${{ totalSinDescuento }} </p>
         </div>
         <div *ngIf="descuento">
             <label> Precio con descuento </label>
-            <p> $ {{ carrito.total }} </p>
+            <p> ${{ carrito.total }} </p>
         </div>
 
         <button (click)="registrarCarrito()" [disabled]="carrito.productos.length == 0"> Finalizar compra </button>

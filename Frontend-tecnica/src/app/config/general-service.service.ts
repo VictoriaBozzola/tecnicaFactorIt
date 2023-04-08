@@ -33,8 +33,8 @@ export class GeneralService {
       return this.http.get<Tipo>(this.baseUrl + '/consultarTipoCarrito?vip=' + vip);
   }
 
-  registrarCarrito(carrito: Carrito): Observable<String>{
-      return this.http.post<String>(this.baseUrl + '/registrarCarrito', carrito);
+  registrarCarrito(carrito: Carrito): Observable<void>{
+      return this.http.post<void>(this.baseUrl + '/registrarCarrito', carrito);
   }
 
 }

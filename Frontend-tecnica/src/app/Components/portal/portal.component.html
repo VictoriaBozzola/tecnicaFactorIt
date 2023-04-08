@@ -6,23 +6,37 @@
         </span>
     </header>
     <main>
-        <h2>Productos</h2>
-        <app-cards></app-cards>
+        <h3>Productos</h3>
+        <div *ngFor="let p of listadoProductos">
+            <app-cards
+            [infoProducto]="p"
+            >
+            </app-cards>
+            <button (click)="agregarACarrito(p)"> Agregar a Carrito </button>
+        </div>
     </main>
     <aside>
-        <p> Tipo Carrito </p>
-        <div>
+        <h3> Detalle Compra </h3>
+        <label *ngIf="carrito.tipo"> Carrito {{carrito.tipo}} </label>
+        <div *ngFor="let p of carrito.productos">
             <div>
-                <p> Nombre producto </p>
-                <p> $ Precio </p>
+                <p> {{p.nombre}} </p>
+                <p> ${{p.precio}} </p>
             </div>
-            <span class="material-symbols-outlined">
+            <span class="material-symbols-outlined" (click)="eliminarDelCarrito(p.id)">
                 delete
             </span>
         </div>
-        <p> Precio total </p>
-        <p> Precio con descuento </p>
+        <hr>
+        <div>
+            <label> Precio total </label>
+            <p> $ {{ totalSinDescuento }} </p>
+        </div>
+        <div *ngIf="descuento">
+            <label> Precio con descuento </label>
+            <p> $ {{ carrito.total }} </p>
+        </div>
 
-        <button> Finalizar compra </button>
+        <button (click)="registrarCarrito()" [disabled]="carrito.productos.length == 0"> Finalizar compra </button>
     </aside>
 </div>

@@ -1,4 +1,4 @@
-export interface Carrito {
+export class Carrito {
     idUsuario: number;
     tipo: Tipo;
     productos: Producto[];
@@ -12,7 +12,7 @@ export enum Tipo {
     PROMOCION = 'PROMOCION'
 }
 
-export interface Producto {
+export class Producto {
     id: number;
     nombre: string;
     precio: number;

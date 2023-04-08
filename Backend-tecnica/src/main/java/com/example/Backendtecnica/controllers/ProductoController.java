@@ -12,15 +12,14 @@ import io.swagger.annotations.ApiOperation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 @RestController
+@CrossOrigin(origins = "http://localhost:4200")
 public class ProductoController {
 
     private final Logger log = LoggerFactory.getLogger(ProductoController.class);
@@ -96,7 +95,7 @@ public class ProductoController {
     }
 
     @PostMapping("/registrarCarrito")
-    @ApiOperation("Registra el carrito cuandos e finaliza la compra")
+    @ApiOperation("Registra el carrito cuando se finaliza la compra")
     public ResponseEntity<String> registrarCarrito(@RequestBody Carrito carrito) {
         carrito.setFechaCompra(LocalDate.now());
         try {
@@ -105,20 +104,23 @@ public class ProductoController {
             if(usuario.isVip()){
                 List<Carrito> listadoComprasMes = carritoRepository.findCompras(carrito.getIdUsuario(), carrito.getFechaCompra());
                 if(listadoComprasMes.size() == 0){
-                    usuariosRepository.modificarTipoUsuario(usuario.getId(), false);
+                    usuario.setVip(false);
+                    usuariosRepository.save(usuario);
                     estadoVip = false;
                 }
             } else {
                 List<Carrito> listadoComprasVip = carritoRepository.findComprasVip(carrito.getIdUsuario(), carrito.getFechaCompra());
                 if(listadoComprasVip.size() > 0) {
-                    usuariosRepository.modificarTipoUsuario(usuario.getId(), true);
+                    usuario.setVip(true);
+                    usuariosRepository.save(usuario);
                     estadoVip = true;
                 }
             }
 
             Carrito save = carritoRepository.save(carrito);
+            log.info("El carrito se guardo correctamente, estado vip de usuario: " + estadoVip);
+            return ResponseEntity.ok().build();
 
-            return ResponseEntity.ok("El carrito se guardo correctamente, estado vip de usuario: " + estadoVip);
 
         } catch(Exception e){
 

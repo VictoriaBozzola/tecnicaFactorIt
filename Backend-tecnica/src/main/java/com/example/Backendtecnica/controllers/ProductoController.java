@@ -95,7 +95,7 @@ public class ProductoController {
     }
 
     @PostMapping("/registrarCarrito")
-    @ApiOperation("Registra el carrito cuandos se finaliza la compra")
+    @ApiOperation("Registra el carrito cuando se finaliza la compra")
     public ResponseEntity<String> registrarCarrito(@RequestBody Carrito carrito) {
         carrito.setFechaCompra(LocalDate.now());
         try {
@@ -120,6 +120,7 @@ public class ProductoController {
             Carrito save = carritoRepository.save(carrito);
             log.info("El carrito se guardo correctamente, estado vip de usuario: " + estadoVip);
             return ResponseEntity.ok().build();
+
 
         } catch(Exception e){
 

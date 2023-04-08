@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class UsuarioGenerate {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private Long idUsuario;
     private String usuario;
     private boolean vip;
 
@@ -15,13 +15,13 @@ public class UsuarioGenerate {
     }
 
     public UsuarioGenerate(Long idUsuario, String usuario, boolean vip) {
-        this.id = idUsuario;
+        this.idUsuario = idUsuario;
         this.usuario = usuario;
         this.vip = vip;
     }
 
-    public Long getId() {
-        return id;
+    public Long getIdUsuario() {
+        return idUsuario;
     }
 
     public String getUsuario() {
@@ -33,8 +33,8 @@ public class UsuarioGenerate {
         return vip;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setIdUsuario(Long idUsuario) {
+        this.idUsuario = idUsuario;
     }
 
     public void setUsuario(String usuario) {

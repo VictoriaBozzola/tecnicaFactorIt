@@ -17,8 +17,4 @@ public interface UsuariosRepository extends JpaRepository<UsuarioGenerate, Long>
     @Query("SELECT u FROM UsuarioGenerate u WHERE u.usuario LIKE %?1%")
     UsuarioGenerate findByUsuario(String usuario);
 
-    @Transactional
-    @Modifying
-    @Query(value = "UPDATE Usuarios u SET u.vip = :vip WHERE u.id = :idUsuario", nativeQuery = true)
-    int modificarTipoUsuario(@Param("idUsuario") Long idUsuario, @Param("vip") boolean vip);
 }

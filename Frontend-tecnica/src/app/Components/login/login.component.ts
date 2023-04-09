@@ -22,12 +22,14 @@ export class LoginComponent implements OnInit {
   }
 
   submit(){
-    this.gralService.login(this.usuario).subscribe((data) => {
-      sessionStorage.setItem('usuario', JSON.stringify(data));
-      this.router.navigateByUrl('/portal');
-    }, err => {
-      console.log("Error: " + err);
-    })
+    if(this.usuario != ''){
+      this.gralService.login(this.usuario).subscribe((data) => {
+        sessionStorage.setItem('usuario', JSON.stringify(data));
+        this.router.navigateByUrl('/portal');
+      }, err => {
+        console.log("Error: " + err);
+      })
+    }
   }
 
 }

@@ -1,7 +1,7 @@
-<div>
-    <form (ngSubmit)="submit()">
-        <h4>Ingresa nombre de usuario</h4>
-        <input type="text" placeholder="Usuario" [(ngModel)]="usuario" name="usuario">
-        <button type="submit"> Ingresar </button>
+<div class="login-container">
+    <form (ngSubmit)="submit()" class="login-form">
+        <label class="login-label">Ingresa nombre de usuario</label>
+        <input class="login-input" type="text" placeholder="Usuario" [(ngModel)]="usuario" name="usuario">
+        <button class="login-button" type="submit" [class.disabled]="usuario == ''"> Ingresar </button>
     </form>
 </div>

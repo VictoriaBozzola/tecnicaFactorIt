@@ -9,4 +9,10 @@
 
 body {
   font-family: 'Plus Jakarta Sans', sans-serif;
+  background: #fffaf2;
+  color: #300c08;
+}
+
+button {
+  font-family: 'Plus Jakarta Sans', sans-serif;
 }

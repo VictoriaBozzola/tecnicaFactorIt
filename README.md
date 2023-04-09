@@ -9,10 +9,6 @@ Detalles:
 - Swagger: http://localhost:8080/swagger-ui/
 - Angular: ng serve
 
-## Spring Boot
-- Aplicación API REST con acceso a base de datos PostgreSQL
-- El acceso se realizará desde postman o navegador.
-
 ## Application.properties
 server.port=8080
 spring.h2.console.enabled=true

@@ -28,9 +28,16 @@ export class PortalComponent implements OnInit {
     this.getProductos();
     this.getFechaEspecial();
     this.datosUsuario = JSON.parse(sessionStorage.getItem('usuario'));
-    console.log
+    this.actualizaciónUsuario();
     this.tipoCarrito();
     this.carrito.idUsuario = this.datosUsuario.idUsuario;
+  }
+
+  actualizaciónUsuario(){
+    this.gralService.login(this.datosUsuario.usuario).subscribe(data => {
+      this.datosUsuario.vip = data.vip;
+      sessionStorage.setItem('usuario', JSON.stringify(this.datosUsuario));
+    })
   }
 
   getProductos(){
@@ -57,6 +64,8 @@ export class PortalComponent implements OnInit {
     producto.precio = p.precio;
     this.carrito.productos.push(producto);
     this.totalSinDescuento += producto.precio;
+    this.actualizaciónUsuario();
+    this.tipoCarrito();
     this.descuentoAplicado();
     
   }
@@ -65,6 +74,8 @@ export class PortalComponent implements OnInit {
     let index = this.carrito.productos.findIndex((e) => e.id == id);
     this.totalSinDescuento -= this.carrito.productos[index].precio;
     this.carrito.productos.splice(index, 1);
+    this.actualizaciónUsuario();
+    this.tipoCarrito();
     this.descuentoAplicado();
   }
 
@@ -105,6 +116,7 @@ export class PortalComponent implements OnInit {
   tipoCarrito(){
     this.gralService.getTipoCarrito(this.datosUsuario.vip).subscribe(tipo => {
       this.carrito.tipo = tipo;
+      console.log('Tipo carrito', this.carrito.tipo);
     }, err => {
       console.log('Error consultando tipo de carrito: ', err)
     })

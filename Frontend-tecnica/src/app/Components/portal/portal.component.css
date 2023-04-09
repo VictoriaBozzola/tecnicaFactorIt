@@ -125,3 +125,7 @@
     background: #fffaf25e;;
     border-radius: 15px;
 }
+
+.info-width {
+    width: 50%;
+}

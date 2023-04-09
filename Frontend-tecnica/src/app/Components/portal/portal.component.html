@@ -11,15 +11,17 @@
             <div *ngFor="let p of listadoProductos" class="portal-flex-center cards-container">
                 <app-cards [infoProducto]="p" class="card-flex portal-col-l">
                 </app-cards>
-                <button (click)="agregarACarrito(p)" class="portal-btn"> Agregar a Carrito </button>
+                <button (click)="agregarACarrito(p)" class="portal-btn"
+                [disabled]="okRegistro"
+                [class.disabled]="okRegistro"> Agregar a Carrito </button>
             </div>
         </div>
         <div class="pago-col">
             <h3> Detalle Compra </h3>
-            <label *ngIf="carrito.tipo"> Carrito {{carrito.tipo}} </label>
+            <label *ngIf="carrito.tipo"> Carrito <strong>{{carrito.tipo}}</strong></label>
             <div *ngFor="let p of carrito.productos" class="portal-seleccionado">
-                <p> {{p.nombre}} </p>
-                <p> ${{p.precio}} </p>
+                <p class="info-width"> {{p.nombre}} </p>
+                <p class="info-width"> ${{p.precio}} </p>
                 <span class="material-symbols-outlined close-icon" (click)="eliminarDelCarrito(p.id)">
                     close
                 </span>
@@ -35,9 +37,10 @@
             </div>
 
             <button (click)="registrarCarrito()" 
-            [disabled]="carrito.productos.length == 0" 
+            [disabled]="carrito.productos.length == 0 || okRegistro" 
             class="btn-finalizar" 
-            [class.disabled]="carrito.productos.length == 0"> Finalizar compra </button>
+            [class.disabled]="carrito.productos.length == 0 || okRegistro"> Finalizar compra </button>
+            <p *ngIf="okRegistro"> ¡Carrito registrado! </p>
         </div>
     </main>
 </div>

@@ -10,21 +10,26 @@ import { Usuario } from 'src/app/interfaces/usuario';
 })
 export class PortalComponent implements OnInit {
 
-  listadoProductos: Producto[]
-  carrito: Carrito = {
-    idUsuario: -1,
-    tipo: null,
-    productos: [],
-    total: 0,
-    };
-  totalSinDescuento: number = 0;
+  listadoProductos: Producto[];
+  carrito: Carrito;
+  totalSinDescuento: number;
   fechaPromocion = new Date();
   datosUsuario: Usuario;
-  descuento: boolean = false;
+  descuento: boolean;
+  okRegistro: boolean;
   
   constructor(private gralService: GeneralService) { }
 
   ngOnInit(): void {
+    this.carrito = {
+      idUsuario: -1,
+      tipo: null,
+      productos: [],
+      total: 0,
+      };
+    this.totalSinDescuento = 0;
+    this.descuento = false;
+    this.okRegistro = false;
     this.getProductos();
     this.getFechaEspecial();
     this.datosUsuario = JSON.parse(sessionStorage.getItem('usuario'));
@@ -43,7 +48,6 @@ export class PortalComponent implements OnInit {
   getProductos(){
     this.gralService.getProductos().subscribe((p) => {
       this.listadoProductos = p;
-      console.log('Trae todos los productos', this.listadoProductos);
     }, err => {
       console.log("Error al traer productos ", err);
     })
@@ -126,6 +130,10 @@ export class PortalComponent implements OnInit {
     console.log("Carrito principal", this.carrito);
     this.gralService.registrarCarrito(this.carrito).subscribe(res => {
       console.log("El carrito se registro correctamente");
+      this.okRegistro = true;
+      setTimeout(()=> {
+        this.ngOnInit();
+      }, 1500)
     }, err => {
       console.log('Error al registrar carrito', err)
     })

@@ -1,0 +1,11 @@
+.card-h4 {
+    min-width: 45%;
+    text-align: center;
+}
+
+.card-col-1{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 60%;
+}

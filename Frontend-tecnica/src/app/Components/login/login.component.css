@@ -38,6 +38,7 @@
     font-weight: 600;
     color: #300c08;
     cursor: pointer;
+    transition: all 1s;
 }
 
 .login-button:active {

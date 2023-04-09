@@ -129,6 +129,15 @@ public class ProductoController {
         }
     }
 
+    @PostMapping("/consultarCarritos")
+    @ApiOperation("Registra el carrito cuando se finaliza la compra")
+    public ResponseEntity<List<Carrito>> consultarCarritos(){
+        try{
+            return ResponseEntity.ok(carritoRepository.findAll());
+        } catch (Exception e) {
+            return ResponseEntity.notFound().build();
+        }
+    }
 
 
 }

@@ -1,12 +1,13 @@
 # tecnicaFactorIt
 Exámen tecnico para Factor It
 Detalles:
-JAVA 11 
-Maven 
-Spring Boot 
-H2
-Swagger: http://localhost:8080/swagger-ui/
-Angular: ng serve
+- Angular 9.0.7
+- JAVA 11 
+- Maven 
+- Spring Boot 
+- H2 DB
+- Swagger: http://localhost:8080/swagger-ui/
+- Angular: ng serve
 
 ## Spring Boot
 - Aplicación API REST con acceso a base de datos PostgreSQL

@@ -13,6 +13,17 @@ Detalles:
 - Aplicación API REST con acceso a base de datos PostgreSQL
 - El acceso se realizará desde postman o navegador.
 
+## Application.properties
+server.port=8080
+spring.h2.console.enabled=true
+spring.datasource.url=jdbc:h2:mem:dcbapp
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.username=sa
+spring.datasource.password=password
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.defer-datasource-initialization=true
+spring.sql.init.mode = always
+spring.mvc.pathmatch.matching-strategy=ant-path-matcher
 
 ## Clases
 

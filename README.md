@@ -8,6 +8,7 @@ Detalles:
 - H2 DB
 - Swagger: http://localhost:8080/swagger-ui/
 - Angular: ng serve
+    - http://http://localhost:4200/login
 
 ## Application.properties
 server.port=8080

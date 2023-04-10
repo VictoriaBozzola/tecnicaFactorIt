@@ -70,7 +70,7 @@ Usuarios:
                         - vip: no cuenta el producto mas barato y descuenta del total - $500
                 d. Botón finalizar compra (Recien ahi envia los datos al back)
                     - Registra en la DB la compra
-                    - Desde el front dice que registro carrito y lo limpia para generar uno nuevo
+                    - Desde el front figura que se registro correctamente el carrito y lo limpia para generar uno nuevo
 
                 b. La opcion de eliminar productos se filtra desde el front
 
